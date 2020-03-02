@@ -65,7 +65,7 @@ String weatherString;
 //#define CS_PIN  1 // 3 // D9/RX
 //#define CLK_PIN 0 // D3
 
-// for NodeMCU 1.0
+// for NodeMCU 1.0 or WeMos D1
 #define DIN_PIN 15  // D8
 #define CS_PIN  13  // D7
 #define CLK_PIN 12  // D6
@@ -389,7 +389,7 @@ JsonObject &root = json_buf.parseObject(jsonBuf);
   weatherString += weatherDescription;
   weatherString += "  Humidity: " + String(humidity) + "%  ";
 //  weatherString += "  Pressure: " + String(pressure) + "hPa  ";
-  weatherString += "  Pressure: " + String(presiune) + "mmH2O  ";
+  weatherString += "  Pressure: " + String(presiune) + "mmHg  ";
   weatherString += "  Clouds: " + String(clouds) + "%  ";
 //  weatherString += "  Wind: " + String(windSpeed,1) + "m/s                 ";
   weatherString += "  Wind: " + String(vant,1) + "km/h                 ";
