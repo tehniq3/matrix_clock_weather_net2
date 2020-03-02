@@ -12,3 +12,5 @@ using info from video https://youtu.be/2I_us9NhIvM
 #define CS_PIN  13  // D7
 
 #define CLK_PIN 12  // D6
+
+![afisaj](https://cdn.instructables.com/FI5/5G57/JIUJPF5B/FI55G57JIUJPF5B.LARGE.jpg?auto=webp&width=1024&height=1024&fit=bounds)
