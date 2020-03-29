@@ -29,7 +29,7 @@
   D8 - DataIn
   D7 - LOAD/CS
   D6 - CLK
-  
+  D5 - time selection
 */
 
 
