@@ -29,7 +29,7 @@
   D8 - DataIn
   D7 - LOAD/CS
   D6 - CLK
-  D5 - time selection
+  
 */
 
 
@@ -79,11 +79,12 @@ String weatherString;
 // =======================================================================
 // CHANGE YOUR CONFIG HERE:
 // =======================================================================
-const char* ssid     = "bere";     // SSID of local network
-const char* password = "bererece";   // Password on network
-String weatherKey = "0APIkey";
-String weatherLang = "&lang=en";
-String cityID = "680332"; //Craiova
+const char* ssid     = "beer";                 // SSID of local network
+const char* password = "icoldbeer";                    // Password on network
+String APIKEY = "APIkey";                                 
+String CityID = "680332";  // Craiova, my town
+
+
 // read OpenWeather api description for more info
 // =======================================================================
 
@@ -332,9 +333,10 @@ void getWeatherData()
 {
   Serial.print("connecting to "); Serial.println(weatherHost);
   if (client.connect(weatherHost, 80)) {
-    client.println("GET /data/2.5/weather?id=" + cityID + "&units=metric&appid=" + weatherKey + weatherLang + "\r\n" +
-                "Host: " + weatherHost + "\r\nUser-Agent: ArduinoWiFi/1.1\r\n" +
-                "Connection: close\r\n\r\n");
+  client.println("GET /data/2.5/weather?id="+CityID+"&units=metric&APPID="+APIKEY);
+ client.println("Host: api.openweathermap.org");
+ client.println("User-Agent: ArduinoWiFi/1.1");
+ client.println("Connection: close");              
   } else {
     Serial.println("connection failed");
     return;
