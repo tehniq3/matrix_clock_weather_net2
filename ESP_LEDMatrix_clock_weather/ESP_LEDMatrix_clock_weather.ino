@@ -3,7 +3,6 @@
  * rotate feature: https://www.youtube.com/watch?v=PUOhUyLCIU8
  * 
  * small changes by Nicu FLORICA (niq_ro)
- * http://www.arduinotehniq.com/
  * 
   ESP-01 pinout from top:
   
@@ -65,7 +64,7 @@ String weatherString;
 //#define CS_PIN  1 // 3 // D9/RX
 //#define CLK_PIN 0 // D3
 
-// for NodeMCU 1.0 or WeMos D1
+// for NodeMCU 1.0
 #define DIN_PIN 15  // D8
 #define CS_PIN  13  // D7
 #define CLK_PIN 12  // D6
@@ -76,11 +75,12 @@ String weatherString;
 // =======================================================================
 // CHANGE YOUR CONFIG HERE:
 // =======================================================================
-const char* ssid     = "bere";     // SSID of local network
-const char* password = "bererece";   // Password on network
-String weatherKey = "bererecelabutoi";  // key from https://openweathermap.org
-String weatherLang = "&lang=en";
-String cityID = "680332"; //Craiova
+const char* ssid     = "beer";                 // SSID of local network
+const char* password = "coldbeer";                    // Password on network
+String APIKEY = "morebeerforall or APIkey";                                 
+String CityID = "680332";   // town (Craiova - Romania)     
+
+
 // read OpenWeather api description for more info
 // =======================================================================
 
@@ -118,20 +118,20 @@ int h,m,s;
 void loop()
 {
   if(updCnt<=0) { // every 10 scrolls, ~450s=7.5m
-    updCnt = 10;
+    updCnt = 5;
     Serial.println("Getting data ...");
-    printStringWithShift("   Getting dat",15);
+ //   printStringWithShift("   Getting dat",15);
     getWeatherData();
-    getCurrencyRates();
+ //   getCurrencyRates();
     getTime();
     Serial.println("Data loaded");
     clkTime = millis();
   }
  
-  if(millis()-clkTime > 45000 && !del && dots) { // clock for 45s, then scrolls for about 30s
-    printStringWithShift(date.c_str(),40);
-    printStringWithShift(currencyRates.c_str(),35);
-    printStringWithShift(weatherString.c_str(),40);
+  if(millis()-clkTime > 15000 && !del && dots) { // clock for 45s, then scrolls for about 30s
+    printStringWithShift(date.c_str(),80);
+ //   printStringWithShift(currencyRates.c_str(),70);
+    printStringWithShift(weatherString.c_str(),80);
     updCnt--;
     clkTime = millis();
   }
@@ -328,23 +328,23 @@ void getWeatherData()
 {
   Serial.print("connecting to "); Serial.println(weatherHost);
   if (client.connect(weatherHost, 80)) {
-//    client.println(String("GET /data/2.5/weather?id=") + cityID + "&units=metric&appid=" + weatherKey + weatherLang + "\r\n" +
-    client.println("GET /data/2.5/weather?id=" + cityID + "&units=metric&appid=" + weatherKey + weatherLang + "\r\n" +
-                "Host: " + weatherHost + "\r\nUser-Agent: ArduinoWiFi/1.1\r\n" +
-                "Connection: close\r\n\r\n");
+ client.println("GET /data/2.5/weather?id="+CityID+"&units=metric&APPID="+APIKEY);
+ client.println("Host: api.openweathermap.org");
+ client.println("User-Agent: ArduinoWiFi/1.1");
+ client.println("Connection: close");              
   } else {
     Serial.println("connection failed");
     return;
   }
   String line;
   int repeatCounter = 0;
-  /*
-  while (!client.available() && repeatCounter < 10) {
-    delay(500);
+ /* 
+  while (!client.available() && repeatCounter < 100) {
+    delay(1);
     Serial.println("w.");
     repeatCounter++;    
   }
-  */
+ */
    while(client.connected() && !client.available()) 
   delay(1);                                          //waits for data
   
@@ -452,7 +452,8 @@ void getCurrencyRates()
 
 // =======================================================================
 
-float utcOffset = 2;
+//float utcOffset = 2;
+float utcOffset = 3;
 long localEpoc = 0;
 long localMillisAtUpdate = 0;
 
@@ -503,4 +504,5 @@ void updateTime()
   s = epoch % 60;
 }
 
+// =======================================================================
 // =======================================================================
