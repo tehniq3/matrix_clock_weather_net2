@@ -328,7 +328,8 @@ void getWeatherData()
 {
   Serial.print("connecting to "); Serial.println(weatherHost);
   if (client.connect(weatherHost, 80)) {
-    client.println(String("GET /data/2.5/weather?id=") + cityID + "&units=metric&appid=" + weatherKey + weatherLang + "\r\n" +
+//    client.println(String("GET /data/2.5/weather?id=") + cityID + "&units=metric&appid=" + weatherKey + weatherLang + "\r\n" +
+    client.println("GET /data/2.5/weather?id=" + cityID + "&units=metric&appid=" + weatherKey + weatherLang + "\r\n" +
                 "Host: " + weatherHost + "\r\nUser-Agent: ArduinoWiFi/1.1\r\n" +
                 "Connection: close\r\n\r\n");
   } else {
